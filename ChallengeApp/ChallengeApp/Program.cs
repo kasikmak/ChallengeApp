@@ -2,7 +2,7 @@
 string numberAsString = number.ToString();
 char[] digits = numberAsString.ToArray();
 
-/*char[] symbols = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+char[] symbols = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
 
 Console.WriteLine("Ilość cyfr w liczbie:" + number);
 
@@ -19,9 +19,9 @@ foreach (var symbol in symbols)
     }
 
    Console.WriteLine(counter + "=>" + counter);
-}*/
+}
 
-int counter0 = 0;
+/*int counter0 = 0;
 int counter1 = 0;
 int counter2 = 0;
 int counter3 = 0;
@@ -85,5 +85,5 @@ foreach (char digit in digits)
     Console.WriteLine("6" + "=>" + counter6);
     Console.WriteLine("7" + "=>" + counter7);
     Console.WriteLine("8" + "=>" + counter8);
-    Console.WriteLine("9" + "=>" + counter9);
+    Console.WriteLine("9" + "=>" + counter9);*/
 
