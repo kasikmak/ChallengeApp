@@ -1,89 +1,62 @@
-﻿int number = 125569;
-string numberAsString = number.ToString();
-char[] digits = numberAsString.ToArray();
+﻿using ChallengeApp;
+using System;
+Employee employee1 = new Employee("Jan", "Nowak", 30);
+Employee employee2 = new Employee("Kasia", "Kowalska", 40);
+Employee employee3 = new Employee("X", "Y", 50);
 
-char[] symbols = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+employee1.AddPoints(2);
+employee1.AddPoints(5);
+employee1.AddPoints(9);
+employee1.AddPoints(1);
+employee1.AddPoints(8);
 
-Console.WriteLine("Ilość cyfr w liczbie:" + number);
+employee2.AddPoints(9);
+employee2.AddPoints(1);
+employee2.AddPoints(3);
+employee2.AddPoints(6);
+employee2.AddPoints(7);
 
-foreach (var symbol in symbols)
+employee3.AddPoints(3);
+employee3.AddPoints(8);
+employee3.AddPoints(1);
+employee3.AddPoints(7);
+employee3.AddPoints(4);
+
+List<Employee> employees = new List<Employee>()
+ {
+    employee1, employee2, employee3
+ };
+
+/*int maxResult = 0;
+Employee bestEmployee = null;
+
+foreach (var employee in employees)
 {
-    var counter = 0;
-    foreach (var digit in digits)
+    if (maxResult < employee.Result)
     {
-        if (digit == symbol)
-        {
-            counter++;
-        }
-
+        maxResult = employee.Result;
+        bestEmployee = employee;
     }
+}*/
 
-   Console.WriteLine(counter + "=>" + counter);
+List<int> employeesResults = new List<int>(); 
+
+foreach (var employee in employees)
+{
+    employeesResults.Add(employee.Result);
 }
 
-/*int counter0 = 0;
-int counter1 = 0;
-int counter2 = 0;
-int counter3 = 0;
-int counter4 = 0;
-int counter5 = 0;
-int counter6 = 0;
-int counter7 = 0;
-int counter8 = 0;
-int counter9 = 0;
+int maXResult = employeesResults.Max();
+Employee bestEmployee = null;
 
-foreach (char digit in digits)
+foreach (var employee in employees)
 {
-    if (digit == '0')
-    {   
-        counter0++;
-    }
-    else if (digit == '1')
+    if (employee.Result == maXResult)
     {
-        counter1++;
-    }
-    else if (digit == '2')
-    {
-        counter2++;
-    }
-    else if (digit == '3')
-    {
-        counter3++;
-    }
-    else if (digit == '4')
-    {
-        counter4++;
-    }
-    else if (digit == '5')
-    {
-        counter5++;
-    }
-    else if (digit == '6')
-    {
-        counter6++;
-    }
-    else if (digit == '7')
-    {
-        counter7++;
-    }
-    else if (digit == '8')
-    {
-        counter8++;
-    }
-    else if (digit == '9')
-    {
-        counter9++;
+        bestEmployee = employee;    
     }
 }
-    Console.WriteLine("Ilość cyfr w liczbie:" + number);
-    Console.WriteLine("0" + "=>" + counter0);
-    Console.WriteLine("1" + "=>" + counter1);
-    Console.WriteLine("2" + "=>" + counter2);
-    Console.WriteLine("3" + "=>" + counter3);
-    Console.WriteLine("4" + "=>" + counter4);
-    Console.WriteLine("5" + "=>" + counter5);
-    Console.WriteLine("6" + "=>" + counter6);
-    Console.WriteLine("7" + "=>" + counter7);
-    Console.WriteLine("8" + "=>" + counter8);
-    Console.WriteLine("9" + "=>" + counter9);*/
+
+Console.WriteLine("Pracownik z największą liczbą punktów to: \n" + bestEmployee.Name + " " + bestEmployee.Surname + " lat " + bestEmployee.Age + " \nWynik: " + bestEmployee.Result);
+
 
