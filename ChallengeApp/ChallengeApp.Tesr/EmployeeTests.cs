@@ -2,7 +2,7 @@ using System.Reflection.Metadata;
 
 namespace ChallengeApp.Tesr
 {
-    public class Tests
+    public class EmployyeTests
     {
        
         [Test]
