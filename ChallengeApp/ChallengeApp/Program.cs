@@ -3,8 +3,8 @@ using System;
 Employee employee1 = new Employee("Jan", "Nowak", 30);
 Employee employee2 = new Employee("Kasia", "Kowalska", 40);
 Employee employee3 = new Employee("X", "Y", 50);
-
-employee1.AddPoints(2);
+    
+employee1.AddPoints(-2);
 employee1.AddPoints(5);
 employee1.AddPoints(9);
 employee1.AddPoints(1);
@@ -13,11 +13,11 @@ employee1.AddPoints(8);
 employee2.AddPoints(9);
 employee2.AddPoints(1);
 employee2.AddPoints(3);
-employee2.AddPoints(6);
+employee2.AddPoints(-6);
 employee2.AddPoints(7);
 
 employee3.AddPoints(3);
-employee3.AddPoints(8);
+employee3.AddPoints(-8);
 employee3.AddPoints(1);
 employee3.AddPoints(7);
 employee3.AddPoints(4);
@@ -58,5 +58,10 @@ foreach (var employee in employees)
 }
 
 Console.WriteLine("Pracownik z największą liczbą punktów to: \n" + bestEmployee.Name + " " + bestEmployee.Surname + " lat " + bestEmployee.Age + " \nWynik: " + bestEmployee.Result);
+Console.WriteLine(employee1.Result);
+Console.WriteLine(employee2.Result);
+Console.WriteLine(employee3.Result);
+
+
 
 
