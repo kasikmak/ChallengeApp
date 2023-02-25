@@ -1,67 +1,33 @@
 ﻿using ChallengeApp;
 using System;
-Employee employee1 = new Employee("Jan", "Nowak", 30);
-Employee employee2 = new Employee("Kasia", "Kowalska", 40);
-Employee employee3 = new Employee("X", "Y", 50);
-    
-employee1.AddPoints(-2);
-employee1.AddPoints(5);
-employee1.AddPoints(9);
-employee1.AddPoints(1);
-employee1.AddPoints(8);
 
-employee2.AddPoints(9);
-employee2.AddPoints(1);
-employee2.AddPoints(3);
-employee2.AddPoints(-6);
-employee2.AddPoints(7);
+var employee1 = new Employee("A", "Z");
+var employee2 = new Employee("Kasia", "Kowalska");
+var employee3 = new Employee("X", "Y");
 
-employee3.AddPoints(3);
-employee3.AddPoints(-8);
-employee3.AddPoints(1);
-employee3.AddPoints(7);
-employee3.AddPoints(4);
+employee1.AddGrades(2);
+employee1.AddGrades(5);
+employee1.AddGrades(9);
+employee1.AddGrades(6);
+employee1.AddGrades(8);
 
-List<Employee> employees = new List<Employee>()
- {
-    employee1, employee2, employee3
- };
+employee2.AddGrades(9);
+employee2.AddGrades(1);
+employee2.AddGrades(3);
+employee2.AddGrades(6);
+employee2.AddGrades(7);
 
-/*int maxResult = 0;
-Employee bestEmployee = null;
+employee3.AddGrades(3);
+employee3.AddGrades(8);
+employee3.AddGrades(1);
+employee3.AddGrades(7);
+employee3.AddGrades(4);
 
-foreach (var employee in employees)
-{
-    if (maxResult < employee.Result)
-    {
-        maxResult = employee.Result;
-        bestEmployee = employee;
-    }
-}*/
+var statistics1 = employee1.GetStatistics();
+var statistics2 = employee2.GetStatistics();
+var statistics3 = employee3.GetStatistics();
 
-List<int> employeesResults = new List<int>(); 
-
-foreach (var employee in employees)
-{
-    employeesResults.Add(employee.Result);
-}
-
-int maXResult = employeesResults.Max();
-Employee bestEmployee = null;
-
-foreach (var employee in employees)
-{
-    if (employee.Result == maXResult)
-    {
-        bestEmployee = employee;    
-    }
-}
-
-Console.WriteLine("Pracownik z największą liczbą punktów to: \n" + bestEmployee.Name + " " + bestEmployee.Surname + " lat " + bestEmployee.Age + " \nWynik: " + bestEmployee.Result);
-Console.WriteLine(employee1.Result);
-Console.WriteLine(employee2.Result);
-Console.WriteLine(employee3.Result);
-
-
-
+Console.WriteLine($"Employee1:\nAverage {statistics1.Average:N2}\nMax {statistics1.Max}\nMin {statistics1.Min}");
+Console.WriteLine($"Employee2:\nAverage {statistics2.Average:N2}\nMax {statistics2.Max}\nMin {statistics2.Min}");
+Console.WriteLine($"Employee3:\nAverage {statistics3.Average:N2}\nMax {statistics3.Max}\nMin {statistics3.Min}");
 

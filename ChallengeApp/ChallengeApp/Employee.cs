@@ -1,6 +1,8 @@
-﻿using System;
+﻿using ChallengeApp;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,39 +10,41 @@ namespace ChallengeApp
 {
     public class Employee
     {
-        public Employee(string name, string surname, int age)
+        public Employee(string name, string surname)
         {
             this.Name = name;
             this.Surname = surname;
-            this.Age = age;
-        }
-
-        public Employee(string name)
-        {
-            this.Name = name; 
         }
 
         public string Name { get; private set; }
 
         public string Surname { get; private set; }
 
-        public int Age { get; private set; }
+        private List<float> grades = new List<float>();
 
-        private List<int> points = new List<int>();
-
-
-    public void AddPoints(int points)
+        public void AddGrades(float grades)
         {
-            this.points.Add(points);
+            this.grades.Add(grades);
         }
 
-        public int Result
+
+        public Statistics GetStatistics()
         {
-            get
+            var statistics = new Statistics();
+            statistics.Average = 0;
+            statistics.Min = float.MaxValue;
+            statistics.Max = float.MinValue;
+
+            foreach(var grade in this.grades)
             {
-                return this.points.Sum();
+                statistics.Min = Math.Min(statistics.Min, grade);
+                statistics.Max = Math.Max(statistics.Max, grade);
+                statistics.Average += grade;
             }
+            statistics.Average /= grades.Count;
 
+            return statistics;
         }
+      
     }
 }
