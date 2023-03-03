@@ -40,6 +40,32 @@
 
             Assert.AreEqual(5, statistics.Max);
         }
+
+        [Test]
+        public void CorrectGradeIfGivingLetter()
+        {
+            var employee = new Employee();
+            employee.AddGrades("a");
+            employee.AddGrades("d");
+
+            var statistics = employee.GetStatistics();
+
+            Assert.AreEqual(70, statistics.Average);
+
+
+        }
+
+        [Test]
+        public void CorrectAverageGradeAsLetter()
+        {
+            var employee = new Employee();
+            employee.AddGrades(50);
+            employee.AddGrades(20);
+
+            var statistics = employee.GetStatistics();
+
+            Assert.AreEqual('D', statistics.Letter);
+        }
     }
 }
 

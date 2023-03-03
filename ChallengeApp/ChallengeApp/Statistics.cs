@@ -14,5 +14,6 @@ namespace ChallengeApp
 
             public float Min { get; set; }
 
+            public char Letter { get; set; }
     }
 }
