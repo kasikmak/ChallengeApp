@@ -1,17 +1,14 @@
-﻿using ChallengeApp;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ChallengeApp
 {
-    public class Employee : IEmployee
+    public class Supervisor : IEmployee
     {
-        public Employee(string name, string surname, char sex)
+        public Supervisor(string name, string surname, char sex)
         {
             this.Name = name;
             this.Surname = surname;
@@ -26,7 +23,7 @@ namespace ChallengeApp
 
         public void AddGrades(float grade)
         {
-            if (grade >= 0 && grade <= 100)
+            if (grade >= 1 && grade <= 6)
             {
                 this.grades.Add(grade);
             }
@@ -38,17 +35,55 @@ namespace ChallengeApp
 
         public void AddGrades(string grade)
         {
-            if (float.TryParse(grade, out float result))
+            switch (grade)
             {
-                this.AddGrades(result);
-            }
-            else if(char.TryParse(grade, out char Letter))
-            {
-                this.AddGrades(Letter);
-            }
-            else
-            {
-                throw new Exception("String is not a float");
+                case "6":
+                    this.grades.Add(100);
+                    break;
+                case "6-" or "-6":
+                    this.grades.Add(95);
+                    break;
+                case "5+" or "+5":
+                    this.grades.Add(85);
+                    break;
+                case "5":
+                    this.grades.Add(80);
+                    break;
+                case "-5" or "5-":
+                    this.grades.Add(75);
+                    break;
+                case "4+" or "+4":
+                    this.grades.Add(65);
+                    break;
+                case "4":
+                    this.grades.Add(60);
+                    break;
+                case "4-" or "-4":
+                    this.grades.Add(55);
+                    break;
+                case "3+" or "+3":
+                    this.grades.Add(45);
+                    break;  
+                case "3":
+                    this.grades.Add(40);
+                    break;
+                case "3-" or "-3":
+                    this.grades.Add(35);
+                    break;
+                case "2+" or "+2":
+                    this.grades.Add(25);
+                    break;
+                case "2":
+                    this.grades.Add(20);
+                    break;
+                case "-2" or "2-":
+                    this.grades.Add(15);
+                    break;
+                case "1":
+                    this.grades.Add(0);
+                    break;
+                default:
+                    throw new Exception("Wrong number");
             }
         }
 
@@ -116,8 +151,8 @@ namespace ChallengeApp
 
             switch (statistics.Average)
             {
-                case var average when average  >= 80:
-                        statistics.Letter = 'A';
+                case var average when average >= 80:
+                    statistics.Letter = 'A';
                     break;
                 case var average when average >= 60:
                     statistics.Letter = 'B';
@@ -128,12 +163,13 @@ namespace ChallengeApp
                 case var average when average >= 20:
                     statistics.Letter = 'D';
                     break;
-                default:               
+                default:
                     statistics.Letter = 'E';
                     break;
             }
 
             return statistics;
+
         }
     }
 }
