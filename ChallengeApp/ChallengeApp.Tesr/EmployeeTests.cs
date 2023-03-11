@@ -5,7 +5,7 @@
         [Test]
         public void CorrectStatisticsAverage()
         {
-            var employee = new Employee("Kasia", "Kowalska" ,'f');
+            var employee = new Employee("Kasia", "Kowalska");
             employee.AddGrades(5);
             employee.AddGrades(3);
             employee.AddGrades(4);
@@ -18,7 +18,7 @@
         [Test]
         public void CorrectStatisticsMin()
         {
-            var employee = new Employee("Kasia", "Kowalska", 'f');
+            var employee = new Employee("Kasia", "Kowalska");
             employee.AddGrades(5);
             employee.AddGrades(3);
             employee.AddGrades(4);
@@ -31,7 +31,7 @@
         [Test]
         public void CorrectStatisticsMax()
         {
-            var employee = new Employee("Kasia", "Kowalska", 'f');
+            var employee = new Employee("Kasia", "Kowalska");
             employee.AddGrades(5);
             employee.AddGrades(3);
             employee.AddGrades(4);
@@ -44,7 +44,7 @@
         [Test]
         public void CorrectGradeIfGivingLetter()
         {
-            var employee = new Employee("k", "k", 'x');
+            var employee = new Employee("k", "k");
             employee.AddGrades("a");
             employee.AddGrades("d");
 
@@ -58,7 +58,7 @@
         [Test]
         public void CorrectAverageGradeAsLetter()
         {
-            var employee = new Employee("x", "y", 'x');
+            var employee = new Employee("x", "y");
             employee.AddGrades(50);
             employee.AddGrades(20);
 

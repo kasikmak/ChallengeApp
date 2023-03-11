@@ -8,11 +8,10 @@ namespace ChallengeApp
 {
     public class Supervisor : IEmployee
     {
-        public Supervisor(string name, string surname, char sex)
+        public Supervisor(string name, string surname)
         {
             this.Name = name;
             this.Surname = surname;
-            this.Sex = sex;
         }
 
         public string Name { get; private set; }
@@ -23,7 +22,7 @@ namespace ChallengeApp
 
         public void AddGrades(float grade)
         {
-            if (grade >= 1 && grade <= 6)
+            if (grade >= 0 && grade <= 6)
             {
                 this.grades.Add(grade);
             }
@@ -33,7 +32,7 @@ namespace ChallengeApp
             }
         }
 
-        public void AddGrades(string grade)
+        /*public void AddGrades(string grade)
         {
             switch (grade)
             {
@@ -84,6 +83,34 @@ namespace ChallengeApp
                     break;
                 default:
                     throw new Exception("Wrong number");
+            }
+        }*/
+
+        public void AddGrades(string grade)
+        {
+            var input = grade switch
+            {
+                "1" => 0,
+                "2-" or "-2" => 15,
+                "2" => 20,
+                "2+" or "+2" => 25,
+                "3-" or "-3" => 35,
+                "3" => 40,
+                "3+"or "+3" => 45,
+                "4-" or "-4" => 55,
+                "4" => 60,
+                "4+" or "+4" => 65,
+                "5-" or "-5" => 75,
+                "5" => 80,
+                "5+" or "+5" => 85,
+                "6-" or "-6" => 95,
+                "6" => 100,
+                _ when float.TryParse(grade, out float result) => result,
+                _ => throw new Exception("Wrong value"),
+            };
+            
+            {
+                this.grades.Add(input);
             }
         }
 

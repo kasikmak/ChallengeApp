@@ -10,7 +10,6 @@ namespace ChallengeApp
     {
         public string Name { get; }
         public string Surname { get; }
-        public char Sex { get; }
 
         public void AddGrades(float grade);
 

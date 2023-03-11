@@ -1,28 +1,21 @@
-﻿using ChallengeApp;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ChallengeApp
 {
-    public class Employee : IEmployee
+    public class EmpolyeeInMemory : EmployeeBase
     {
-        public Employee(string name, string surname)
+        public EmpolyeeInMemory(string name, string surname)
+            : base(name, surname)
         {
-            this.Name = name;
-            this.Surname = surname;
         }
-
-        public string Name { get; private set; }
-        public string Surname { get; private set; }
 
         private List<float> grades = new List<float>();
 
-        public void AddGrades(float grade)
+        public override void AddGrades(float grade)
         {
             if (grade >= 0 && grade <= 100)
             {
@@ -34,13 +27,13 @@ namespace ChallengeApp
             }
         }
 
-        public void AddGrades(string grade)
+        public override void AddGrades(string grade)
         {
             if (float.TryParse(grade, out float result))
             {
                 this.AddGrades(result);
             }
-            else if(char.TryParse(grade, out char Letter))
+            else if (char.TryParse(grade, out char Letter))
             {
                 this.AddGrades(Letter);
             }
@@ -50,29 +43,23 @@ namespace ChallengeApp
             }
         }
 
-        public void AddGrades(double grade)
+        public override void AddGrades(double grade)
         {
             var DoubleAsFloat = (float)grade;
             this.AddGrades(DoubleAsFloat);
         }
 
-        public void AddGrades(decimal grade)
-        {
-            var DecimalAsFloat = (float)grade;
-            this.AddGrades(DecimalAsFloat);
-        }
-
-        public void AddGrades(long grade)
+        public override void AddGrades(long grade)
         {
             var LongAsFloat = (float)grade;
             this.AddGrades(LongAsFloat);
         }
 
-        public void AddGrades(char grade)
+        public override void AddGrades(char grade)
         {
             switch (grade)
             {
-                case 'A' or 'a':
+                case 'A'or 'a':
                     this.grades.Add(100);
                     break;
                 case 'B' or 'b':
@@ -84,7 +71,7 @@ namespace ChallengeApp
                 case 'D' or 'd':
                     this.grades.Add(40);
                     break;
-                case 'E' or 'e':
+                case 'E' or'e':
                     this.grades.Add(20);
                     break;
                 default:
@@ -92,7 +79,7 @@ namespace ChallengeApp
             }
         }
 
-        public Statistics GetStatistics()
+        public override Statistics GetStatistics()
         {
             var statistics = new Statistics();
             statistics.Average = 0;
@@ -109,8 +96,8 @@ namespace ChallengeApp
 
             switch (statistics.Average)
             {
-                case var average when average  >= 80:
-                        statistics.Letter = 'A';
+                case var average when average >= 80:
+                    statistics.Letter = 'A';
                     break;
                 case var average when average >= 60:
                     statistics.Letter = 'B';
@@ -121,11 +108,10 @@ namespace ChallengeApp
                 case var average when average >= 20:
                     statistics.Letter = 'D';
                     break;
-                default:               
+                default:
                     statistics.Letter = 'E';
                     break;
             }
-
             return statistics;
         }
     }

@@ -12,7 +12,7 @@ namespace ChallengeApp.Test
         [Test]
         public void AddingGradesForSupervisor()
         {
-            var supervisor = new Supervisor("x", "Y", 'x');
+            var supervisor = new Supervisor("x", "Y");
             supervisor.AddGrades("-6");
             supervisor.AddGrades("4");
             supervisor.AddGrades("2+");
