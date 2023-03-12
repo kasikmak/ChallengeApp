@@ -13,6 +13,8 @@ namespace ChallengeApp
         {
         }
 
+        public override event GradeAddedDelegate GradeAdded;
+
         private List<float> grades = new List<float>();
 
         public override void AddGrades(float grade)
@@ -20,6 +22,11 @@ namespace ChallengeApp
             if (grade >= 0 && grade <= 100)
             {
                 this.grades.Add(grade);
+
+                if(GradeAdded != null)
+                {
+                    GradeAdded(this,new EventArgs());
+                }
             }
             else
             {

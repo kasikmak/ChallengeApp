@@ -14,6 +14,9 @@ namespace ChallengeApp
         {
         }
 
+        public override event GradeAddedDelegate GradeAdded;
+
+
         private const string fileName = "grades.txt";
 
         public override void AddGrades(float grade)
@@ -23,6 +26,10 @@ namespace ChallengeApp
                 using (var writer = File.AppendText(fileName))
                 {
                     writer.WriteLine(grade);
+                }
+                if (GradeAdded != null)
+                {
+                    GradeAdded(this, new EventArgs());
                 }
             }
             else
