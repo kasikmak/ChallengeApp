@@ -15,6 +15,8 @@ namespace ChallengeApp
 
         public override event GradeAddedDelegate GradeAdded;
 
+        public override event GreatScoreDelegate GreatScore;
+
         private List<float> grades = new List<float>();
 
         public override void AddGrades(float grade)
@@ -23,9 +25,9 @@ namespace ChallengeApp
             {
                 this.grades.Add(grade);
 
-                if(GradeAdded != null)
+                if (GradeAdded != null)
                 {
-                    GradeAdded(this,new EventArgs());
+                    GradeAdded(this, new EventArgs());
                 }
             }
             else
@@ -66,7 +68,7 @@ namespace ChallengeApp
         {
             switch (grade)
             {
-                case 'A'or 'a':
+                case 'A' or 'a':
                     this.grades.Add(100);
                     break;
                 case 'B' or 'b':
@@ -78,7 +80,7 @@ namespace ChallengeApp
                 case 'D' or 'd':
                     this.grades.Add(40);
                     break;
-                case 'E' or'e':
+                case 'E' or 'e':
                     this.grades.Add(20);
                     break;
                 default:
@@ -89,37 +91,36 @@ namespace ChallengeApp
         public override Statistics GetStatistics()
         {
             var statistics = new Statistics();
-            statistics.Average = 0;
-            statistics.Min = float.MaxValue;
-            statistics.Max = float.MinValue;
 
             foreach (var grade in this.grades)
             {
-                statistics.Min = Math.Min(statistics.Min, grade);
-                statistics.Max = Math.Max(statistics.Max, grade);
-                statistics.Average += grade;
-            }
-            statistics.Average /= grades.Count;
-
-            switch (statistics.Average)
-            {
-                case var average when average >= 80:
-                    statistics.Letter = 'A';
-                    break;
-                case var average when average >= 60:
-                    statistics.Letter = 'B';
-                    break;
-                case var average when average >= 40:
-                    statistics.Letter = 'C';
-                    break;
-                case var average when average >= 20:
-                    statistics.Letter = 'D';
-                    break;
-                default:
-                    statistics.Letter = 'E';
-                    break;
+                statistics.AddGrade(grade);
             }
             return statistics;
+        }
+
+        public override void ShowStaticstics()
+        {
+            var stat = GetStatistics();
+            if (stat != null)
+            {
+                Console.WriteLine($"Employee's score {Name} {Surname}:\nAverage {stat.Average:N2}\nMax {stat.Max}\nMin {stat.Min}\nAverage as letter: {stat.Letter}\n----------------------------------------------");
+                if(stat.Letter == 'A')
+                {
+                    GreatScoreEvent();                }
+                }
+            else
+            {
+                Console.WriteLine($"No grades entered for {Name} {Surname}");
+            }
+        }
+
+        private void GreatScoreEvent()
+        {
+            if (GreatScore != null)
+            {
+                GreatScore(this, new EventArgs());
+            }
         }
     }
 }

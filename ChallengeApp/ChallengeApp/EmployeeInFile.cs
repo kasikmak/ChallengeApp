@@ -8,22 +8,26 @@ namespace ChallengeApp
 {
     internal class EmployeeInFile : EmployeeBase
     {
+
+        private const string fileName = "grades.txt";
+        private string fileNameWithUSerName;
+
         public EmployeeInFile
             (string name, string surname)
             : base(name, surname)
         {
+            fileNameWithUSerName = $"{name}_{surname}_{fileName}.txt";
         }
 
         public override event GradeAddedDelegate GradeAdded;
 
-
-        private const string fileName = "grades.txt";
+        public override event GreatScoreDelegate GreatScore;
 
         public override void AddGrades(float grade)
         {
             if (grade >= 0 && grade <= 100)
             {
-                using (var writer = File.AppendText(fileName))
+                using (var writer = File.AppendText(fileNameWithUSerName))
                 {
                     writer.WriteLine(grade);
                 }
@@ -93,64 +97,54 @@ namespace ChallengeApp
         public override Statistics GetStatistics()
         {
             var gradesFromFile = this.ReadGradesFromFile();
-            var statistics = this.CountStatistics(gradesFromFile);
+            var statistics = this.GetStatistics(gradesFromFile);
             return statistics;
         }
 
         private List<float> ReadGradesFromFile()
         {
-            var grades = new List<float>();
-            if (File.Exists(fileName))
+            var grade = new List<float>();
+            if (File.Exists(fileNameWithUSerName))
             {
-                using (var reader = File.OpenText(fileName))
+                using (var reader = File.OpenText(fileNameWithUSerName))
                 {
                     var line = reader.ReadLine();
                     while (line != null)
                     {
                         var number = float.Parse(line);
-                        grades.Add(number);
+                        grade.Add(number);
                         line = reader.ReadLine();
                     }
                 }
             }
-            return grades;  
+            return grade;  
         }
 
-        private Statistics CountStatistics(List<float> grades)
+        private Statistics GetStatistics(List<float> grades)
         {
 
             var statistics = new Statistics();
-            statistics.Average = 0;
-            statistics.Min = float.MaxValue;
-            statistics.Max = float.MinValue;
+        
 
             foreach (var grade in grades)
             {
-                statistics.Min = Math.Min(statistics.Min, grade);
-                statistics.Max = Math.Max(statistics.Max, grade);
-                statistics.Average += grade;
-            }
-            statistics.Average /= grades.Count;
-
-            switch (statistics.Average)
-            {
-                case var average when average >= 80:
-                    statistics.Letter = 'A';
-                    break;
-                case var average when average >= 60:
-                    statistics.Letter = 'B';
-                    break;
-                case var average when average >= 40:
-                    statistics.Letter = 'C';
-                    break;
-                case var average when average >= 20:
-                    statistics.Letter = 'D';
-                    break;
-                default:
-                    statistics.Letter = 'E';
-                    break;
+                statistics.AddGrade(grade);
             }
             return statistics;
+
+        }
+
+        public override void ShowStaticstics()
+        {
+            var stat = GetStatistics();
+            if (stat != null)
+            {
+                Console.WriteLine($"Ocena pracownika {Name} {Surname}:\nAverage {stat.Average:N2}\nMax {stat.Max}\nMin {stat.Min}\nOcena literowa: {stat.Letter}");
+            }
+            else
+            {
+                Console.WriteLine($"Brak ocen dla prcownika {Name} {Surname}");
+            }
         }
     }
 }

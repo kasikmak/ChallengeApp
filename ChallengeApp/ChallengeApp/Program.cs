@@ -1,45 +1,110 @@
 ﻿using ChallengeApp;
 using System;
+using System.Runtime.CompilerServices;
 
-Console.WriteLine("Witamy w programie do oceny pracowników");
-Console.WriteLine("---------------------------------------");
+Console.WriteLine("Welcome to aplication for grading employees");
+Console.WriteLine("-------------------------------------------");
 
-var employee = new EmployeeInFile("A", "B");
+bool exit = false;
 
-employee.GradeAdded += EmployeeGradeAdded;
-
-void EmployeeGradeAdded(object sender, EventArgs args)
+while (!exit)
 {
-    Console.WriteLine("Grade added");
-}
-
-employee.AddGrades(0.5);
-employee.AddGrades(2);
-employee.AddGrades(5.5f);
-employee.AddGrades('d');
-
-//var supervisor = new Supervisor("Y", "Z");
-
-while (true)
-{
-    Console.WriteLine("Podaj ocenę pracownika w zakresie 0-100 albo A-E. Zakończ ocenianie wpisując q");
+    Console.WriteLine("You have to choose how to store data for each employee:");
+    Console.WriteLine("In memory - 1");
+    Console.WriteLine("In seprate file for each employee .txt - 2");
+    Console.WriteLine("Exit aplication - X");
     var input = Console.ReadLine();
-    if (input == "q" || input == "Q")
+    switch (input)
     {
-        break;
+        case "1":
+            AddGradesInMemory();
+            break;
+        case "2":
+            AddGradesInFile();
+            break;
+        case "X" or "x":
+            exit = true;
+            break;
+        default:
+            Console.WriteLine("Wrong data. Enter 1, 2 lub X");
+            break;
+    }
+}
+    
+void EmployeeGradeAdded(object sender, EventArgs args)
+   {
+        Console.WriteLine("Grade added");
+   }
+
+void EmployeeGreatScore(object sender, EventArgs args)
+    {
+    Console.WriteLine("Great score. Congratulation!");
     }
 
-    try
+void AddGradesInMemory()
+{
+    Console.WriteLine("Enter employee's name");
+    string name = Console.ReadLine();
+    Console.WriteLine("Enter employee's surname");
+    string surname = Console.ReadLine();
+    if (!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(surname))
     {
-        employee.AddGrades(input);
+        var employeeInMemory = new EmpolyeeInMemory(name, surname);
+        employeeInMemory.GradeAdded += EmployeeGradeAdded;
+        EnterGrade(employeeInMemory);
+        employeeInMemory.GetStatistics();
+        employeeInMemory.ShowStaticstics();
+        employeeInMemory.GreatScore += EmployeeGreatScore;
     }
-    catch (Exception e)
+    else
     {
-
-        Console.WriteLine($"( {e.Message})"); ;
+        Console.WriteLine("You have to enter employee's name and surname");
     }
 }
 
+void AddGradesInFile()
+{
+    Console.WriteLine("Enter employee's name");
+    string name = Console.ReadLine();
+    Console.WriteLine("Enter employee's surname");
+    string surname = Console.ReadLine();
+    if (!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(surname))
+    {
+        var employeeInFile = new EmployeeInFile(name, surname);
+        employeeInFile.GradeAdded += EmployeeGradeAdded;
+        EnterGrade(employeeInFile);
+        employeeInFile.GetStatistics();
+        employeeInFile.ShowStaticstics();
+    }
+    else
+    {
+        Console.WriteLine("You have to enter employee's name and surname");
+    }
+}
+
+static void EnterGrade(IEmployee employee)
+{
+    while (true)
+    {
+        Console.WriteLine($"Enter grade for: {employee.Name} {employee.Surname} between 0-100 or A-E. To finish enter q");
+        var input = Console.ReadLine();
+
+        if (input == "q" || input == "Q")
+        {
+            break;
+        }
+
+        try
+        {
+            employee.AddGrades(input);
+        }
+        catch (Exception e)
+        {
+
+            Console.WriteLine($"( {e.Message})"); ;
+        }
+    } 
+}
 /*while (true)
 {
     Console.WriteLine("Podaj ocenę kierownika w zakresie 1-6 z + (+5pkt) lub - (-5pkt). Zakończ ocenianie wpisując q");
@@ -60,10 +125,3 @@ while (true)
     }
 }*/
 
-var statistics1 = employee.GetStatistics();
-//var statistics2 = supervisor.GetStatistics();
-
-Console.WriteLine("---------------------------------------");
-Console.WriteLine($"Ocena pracownika:\nAverage {statistics1.Average:N2}\nMax {statistics1.Max}\nMin {statistics1.Min}\nOcena literowa: {statistics1.Letter}");
-Console.WriteLine();
-//Console.WriteLine($"Ocena kierownika:\nAverage {statistics2.Average:N2}\nMax {statistics2.Max}\nMin {statistics2.Min}\nOcena literowa: {statistics2.Letter}");

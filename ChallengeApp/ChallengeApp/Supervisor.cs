@@ -32,7 +32,7 @@ namespace ChallengeApp
             }
         }
 
-        /*public void AddGrades(string grade)
+        public void AddGrades(string grade)
         {
             switch (grade)
             {
@@ -84,9 +84,9 @@ namespace ChallengeApp
                 default:
                     throw new Exception("Wrong number");
             }
-        }*/
+        }
 
-        public void AddGrades(string grade)
+       /* public void AddGrades(string grade)
         {
             var input = grade switch
             {
@@ -112,7 +112,7 @@ namespace ChallengeApp
             {
                 this.grades.Add(input);
             }
-        }
+        }*/
 
         public void AddGrades(double grade)
         {
@@ -164,39 +164,27 @@ namespace ChallengeApp
         public Statistics GetStatistics()
         {
             var statistics = new Statistics();
-            statistics.Average = 0;
-            statistics.Min = float.MaxValue;
-            statistics.Max = float.MinValue;
-
+            
             foreach (var grade in this.grades)
             {
-                statistics.Min = Math.Min(statistics.Min, grade);
-                statistics.Max = Math.Max(statistics.Max, grade);
-                statistics.Average += grade;
-            }
-            statistics.Average /= grades.Count;
-
-            switch (statistics.Average)
-            {
-                case var average when average >= 80:
-                    statistics.Letter = 'A';
-                    break;
-                case var average when average >= 60:
-                    statistics.Letter = 'B';
-                    break;
-                case var average when average >= 40:
-                    statistics.Letter = 'C';
-                    break;
-                case var average when average >= 20:
-                    statistics.Letter = 'D';
-                    break;
-                default:
-                    statistics.Letter = 'E';
-                    break;
+               statistics.AddGrade(grade);
             }
 
             return statistics;
 
+        }
+
+        public void ShowStaticstics()
+        {
+            var stat = GetStatistics();
+            if (stat != null)
+            {
+                Console.WriteLine($"Ocena kierownika {Name} {Surname}:\nAverage {stat.Average:N2}\nMax {stat.Max}\nMin {stat.Min}\nOcena literowa: {stat.Letter}");
+            }
+            else
+            {
+                Console.WriteLine($"Brak ocen dla kierownika {Name} {Surname}");
+            }
         }
     }
 }

@@ -10,7 +10,11 @@ namespace ChallengeApp
     {
         public delegate void GradeAddedDelegate(object sender, EventArgs args);
 
+        public delegate void GreatScoreDelegate(object sender, EventArgs args);
+
         public abstract event GradeAddedDelegate GradeAdded;
+
+        public abstract event GreatScoreDelegate GreatScore;
 
         public EmployeeBase(string name, string surname)
         {
@@ -33,5 +37,8 @@ namespace ChallengeApp
         public abstract void AddGrades(char grade);
 
         public abstract Statistics GetStatistics();
+
+        public abstract void ShowStaticstics();
+       
     }
 }
